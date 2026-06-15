@@ -1,0 +1,27 @@
+{
+  "screen": "06 — Booking (Slot Selection & Confirm)",
+  "import_design_system": "_design-system.json",
+
+  "layout": "2-step flow. Light bg. Step indicator at top. Back arrow top-left. Desktop: sidebar with buddy mini-profile remains visible.",
+
+  "elements": [
+    "STEP INDICATOR: '1 of 2' or '2 of 2' with progress bar",
+    "Back arrow (ghost, top-left)",
+
+    "STEP 1 — Select Date & Time:",
+    "  Mini calendar showing current month. Available dates highlighted with green dot (#22C55E). Selected date highlighted orange (#FF8A34). Tap to select",
+    "  Below calendar: Scrollable list of time slot cards. Each card: time range (e.g. 07:00-08:00), duration '1 hour', price 'Rp XX'. Selected slot has orange border + checkmark",
+
+    "STEP 2 — Confirm Booking:",
+    "  Summary card: Buddy photo (small), name, date, time, gym location (address), package type (single/package)",
+    "  Price breakdown: subtotal, promo discount (if any), total (bold, navy, large)",
+    "  Promo code: Expandable input field + 'Apply' button",
+    "  Waiver note: small text 'By confirming, you agree to TrialFit's cancellation policy'",
+    "  CTA: 'Confirm Booking' — orange (#FF8A34), full width, large",
+
+    "SIDEBAR (desktop only): Buddy mini-profile — photo, name, tier badge, rating"
+  ],
+
+  "states": ["step_1_slot", "step_2_confirm", "promo_applied", "promo_error"],
+  "notes": "Keep it simple and guided. One step at a time. Promo code is expandable (don't show by default). CTA is always visible at bottom."
+}

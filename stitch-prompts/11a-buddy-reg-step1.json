@@ -1,0 +1,36 @@
+{
+  "screen": "11a — Buddy Registration: Step 1 — Personal Info",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Single step screen. Light bg (#F8FAFC). Clean, professional feel. Consistent layout with other wizard steps (same top bar, progress, content area, CTA positioning).",
+
+  "layout_structure": {
+    "top_bar": "Back arrow (top-left, DISABLED/lighter for step 1). No skip link.",
+    "progress": "Step indicator centered: 4 dot circles. Step 1: ORANGE (#FF8A34) filled. Steps 2-4: gray (#E2E8F0) outlined.",
+    "illustration": "Large user/profile icon centered, ~80px, in blue (#003F8C)",
+    "heading": "'Personal Info' — navy (#0B1B3B), h2 (24px), bold, centered",
+    "subtitle": "'Isi data diri kamu untuk memulai' — slate (#64748B), body (16px), centered",
+    "content_area": "Form fields stacked vertically, 16px gap",
+    "cta": "Button 'Lanjut' — orange (#FF8A34), full width, 14px/24px padding, 12px radius. DISABLED until all required fields valid.",
+    "spacing": "24px between sections. 16px horizontal padding mobile, 32px desktop."
+  },
+
+  "elements": [
+    "TOP BAR: Back arrow (ghost, disabled — lighter gray #CBD5E1) left. No skip link.",
+    "PROGRESS: 4 horizontal dots. Dot 1: orange (#FF8A34) filled. Dots 2-4: gray (#E2E8F0) outlined.",
+    "ILLUSTRATION: Large user/profile icon, centered, #003F8C, ~80x80px.",
+    "HEADING: 'Personal Info' centered, navy #0B1B3B, bold, 24px.",
+    "SUBTITLE: 'Isi data diri kamu untuk memulai' centered, slate #64748B, 16px.",
+    "CONTENT — Form fields stacked, 16px gap:",
+    "  PHOTO UPLOAD: Circular avatar area (100px diameter). Dashed border #E2E8F0, camera icon center (#94A3B8). Tap → upload + crop. Preview replaces placeholder.",
+    "  FULL NAME: Text input, label 'Nama Lengkap', placeholder 'Masukkan nama lengkap'",
+    "  PHONE: Input with country code dropdown (+62 default), placeholder '81234567890'",
+    "  EMAIL: Input, placeholder 'email@example.com', validation checkmark",
+    "  PASSWORD: Input with show/hide toggle, strength indicator below",
+    "  CONFIRM PASSWORD: Input, validation match check",
+    "CTA: 'Lanjut' — orange (#FF8A34), full width. Disabled: gray #CBD5E1."
+  ],
+
+  "states": ["empty", "partial", "complete", "validating"],
+  "notes": "IDENTICAL LAYOUT to steps 2-4 — only content area changes. All required fields must be valid before CTA enables. Photo upload shows preview after selection."
+}

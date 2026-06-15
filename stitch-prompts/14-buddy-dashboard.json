@@ -1,0 +1,45 @@
+{
+  "screen": "14 — Buddy Dashboard",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Main hub for approved buddies after login. Top nav with greeting. Scrollable content sections. Bottom tab bar (Home active). Desktop: 3-column layout. Mobile: single column. Mirrors Seeker Dashboard structure but buddy-focused.",
+
+  "elements": [
+    "TOP NAV: Navy (#0B1B3B) bar. Left: greeting 'Halo, [Nama]!' + small avatar (from profile photo). Right: notification bell with badge count (new bookings, messages).",
+
+    "SUMMARY STATS: 4 cards in a row (2x2 grid on mobile). Each: white bg, 16px radius, icon + number + label",
+    "  Card 1: Calendar icon — '8' — 'Jadwal Aktif' (upcoming sessions this week)",
+    "  Card 2: Wallet icon — 'Rp 2.400.000' — 'Saldo Tersedia' (withdrawable)",
+    "  Card 3: Star icon — '4.9' — 'Rating' (current average)",
+    "  Card 4: Users icon — '12' — 'Total Seeker' (unique clients)",
+
+    "EARNINGS SECTION: 'Pendapatan Bulan Ini' header",
+    "  Bar chart / line chart simple: weekly earnings for current month (4 bars/points)",
+    "  Below chart: 3 small stat pills — 'Minggu Ini: Rp 600K' | 'Bulan Lalu: Rp 2.1M' | 'Total: Rp 15.3M'",
+    "  'Tarik Dana' button (outline, blue #003F8C) — navigates to withdrawal flow",
+
+    "UPCOMING SESSIONS: Horizontal scrollable row. 3 mini cards (like seeker dashboard).",
+    "  Each card: Seeker photo (small), seeker name, date, time, duration, location, status badge ('Terkonfirmasi' / 'Menunggu')",
+    "  Tap card → navigate to session detail (manage attendance, reschedule)",
+
+    "SCHEDULE MANAGEMENT: 'Jadwal Mingguan' section",
+    "  Compact weekly view (Mon-Sun) with time blocks shown as colored bars on each day",
+    "  'Edit Jadwal' button (ghost) → navigates to Schedule Setup screen (screen 12)",
+
+    "RECENT ACTIVITY: Vertical list, 5 items max. Each: icon + description + time + amount (if earning)",
+    "  Examples: 'Booking baru dari Rangga — Rp 150K — 2 jam lalu', 'Payout Rp 500K berhasil — Kemarin', 'Review 5★ dari Bu Dewi — 3 hari lalu'",
+
+    "QUICK ACTIONS: 3 large action cards in a row (stack on mobile)",
+    "  Card 1: Calendar + 'Atur Jadwal' → Schedule Setup",
+    "  Card 2: Wallet + 'Tarik Dana' → Withdrawal flow",
+    "  Card 3: Chart + 'Lihat Statistik' → Detailed analytics page",
+
+    "TIER & PROGRESS: Small card showing current tier badge + progress to next tier",
+    "  Example: Gold badge + 'Butuh 3 review 5★ lagi untuk tier Pro'",
+
+    "BOTTOM TAB BAR: Floating pill. Items: Home (active orange), Jadwal, Booking, Wallet, Profil"
+  ],
+
+  "states": ["loading", "active", "no_sessions_yet", "error", "offline"],
+  "notes": "Mirrors Seeker Dashboard layout for consistency. Stats cards show buddy metrics (not seeker). Earnings chart is key motivator. Quick actions drive core behaviors. Tier progress gamifies growth."
+}

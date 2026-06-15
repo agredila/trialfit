@@ -1,0 +1,35 @@
+{
+  "screen": "11c — Buddy Registration: Step 3 — Documents",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Single step screen. Light bg (#F8FAFC). Clean, professional feel. IDENTICAL LAYOUT to other steps — only content area changes.",
+
+  "layout_structure": {
+    "top_bar": "Back arrow (top-left, active navy #003F8C). No skip link.",
+    "progress": "Step indicator centered: 4 dot circles. Steps 1-2: GREEN (#22C55E) filled. Step 3: ORANGE (#FF8A34) filled. Step 4: gray (#E2E8F0) outlined.",
+    "illustration": "Large document/file icon centered, ~80px, in blue (#003F8C)",
+    "heading": "'Documents' — navy (#0B1B3B), h2 (24px), bold, centered",
+    "subtitle": "'Upload dokumen untuk verifikasi' — slate (#64748B), body (16px), centered",
+    "content_area": "Document upload areas stacked, 16px gap",
+    "cta": "Button 'Lanjut' — orange (#FF8A34), full width. DISABLED until mandatory docs uploaded.",
+    "spacing": "24px between sections. 16px horizontal padding mobile, 32px desktop."
+  },
+
+  "elements": [
+    "TOP BAR: Back arrow (ghost, navy #003F8C, active) left. No skip link.",
+    "PROGRESS: 4 horizontal dots. Dots 1-2: green (#22C55E) filled. Dot 3: orange (#FF8A34) filled. Dot 4: gray (#E2E8F0) outlined.",
+    "ILLUSTRATION: Large document/file icon, centered, #003F8C, ~80x80px.",
+    "HEADING: 'Documents' centered, navy #0B1B3B, bold, 24px.",
+    "SUBTITLE: 'Upload dokumen untuk verifikasi' centered, slate #64748B, 16px.",
+    "CONTENT — Upload areas stacked, 16px gap:",
+    "  UPLOAD 1 — KTP (MANDATORY): Card with red asterisk. Icon: ID card. Button 'Upload KTP'. After upload: shows file name + size + green checkmark + 'Hapus' link. Max 5MB, PDF/JPG/PNG.",
+    "  UPLOAD 2 — NPWP (MANDATORY): Card with red asterisk. Icon: tax document. Button 'Upload NPWP'. After upload: file name + size + green checkmark.",
+    "  UPLOAD 3 — CERTIFICATES (OPTIONAL): Card with 'Opsional — wajib untuk tier Pro'. Icon: certificate. Button 'Upload Sertifikat'. Multiple files allowed (max 3). After upload: list of files with sizes.",
+    "  UPLOAD 4 — EXPERIENCE PHOTOS (OPTIONAL): Card. Icon: photo. Button 'Upload Foto Pengalaman'. Max 5 photos. Grid preview thumbnails (80x80px) with remove '×'.",
+    "  TEXT AREA — CLIENT TESTIMONIALS (OPTIONAL): Label 'Referensi Client Sebelumnya (Opsional)'. Textarea, 4 lines min. Placeholder: 'Nama + nomor HP client sebelumnya untuk verifikasi (pisahkan dengan koma)'",
+    "CTA: 'Lanjut' — orange (#FF8A34), full width. Disabled until KTP & NPWP uploaded."
+  ],
+
+  "states": ["empty", "ktp_only", "npwp_only", "both_mandatory", "complete"],
+  "notes": "IDENTICAL LAYOUT to other steps. KTP & NPWP mandatory. Upload shows file name, size, checkmark. Optional fields don't block CTA. File type/size validation inline."
+}

@@ -1,0 +1,37 @@
+{
+  "screen": "11d — Buddy Registration: Step 4 — Review & Submit",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Single step screen. Light bg (#F8FAFC). Clean, professional feel. IDENTICAL LAYOUT to other steps — only content area changes.",
+
+  "layout_structure": {
+    "top_bar": "Back arrow (top-left, active navy #003F8C). No skip link.",
+    "progress": "Step indicator centered: 4 dot circles. Steps 1-3: GREEN (#22C55E) filled. Step 4: ORANGE (#FF8A34) filled.",
+    "illustration": "Large clipboard/checklist icon centered, ~80px, in blue (#003F8C)",
+    "heading": "'Review & Submit' — navy (#0B1B3B), h2 (24px), bold, centered",
+    "subtitle": "'Periksa data sebelum dikirim ke admin' — slate (#64748B), body (16px), centered",
+    "content_area": "Summary sections with edit links, agreement + signature",
+    "cta": "Button 'Submit for Review' — orange (#FF8A34), full width. DISABLED until agreement checked + signature drawn.",
+    "spacing": "24px between sections. 16px horizontal padding mobile, 32px desktop."
+  },
+
+  "elements": [
+    "TOP BAR: Back arrow (ghost, navy #003F8C, active) left. No skip link.",
+    "PROGRESS: 4 horizontal dots. Dots 1-3: green (#22C55E) filled. Dot 4: orange (#FF8A34) filled.",
+    "ILLUSTRATION: Large clipboard/checklist icon, centered, #003F8C, ~80x80px.",
+    "HEADING: 'Review & Submit' centered, navy #0B1B3B, bold, 24px.",
+    "SUBTITLE: 'Periksa data sebelum dikirim ke admin' centered, slate #64748B, 16px.",
+    "CONTENT:",
+    "  SUMMARY SECTIONS: 3 collapsible/read-only cards, each with pencil edit icon (navigates back to that step):",
+    "    SECTION 1 — Personal Info: Name, Phone, Email, Photo thumbnail",
+    "    SECTION 2 — Professional: Specializations, Locations, Price, Response Hours, Online Coaching toggle",
+    "    SECTION 3 — Documents: KTP ✓, NPWP ✓, Certificates (count), Experience Photos (count), Testimonials",
+    "  AGREEMENT: Checkbox row — checkbox (orange when checked) + 'Saya menyetujui TrialFit Buddy Agreement' (link to PDF). Required.",
+    "  E-SIGNATURE: Label 'Tanda Tangan Digital'. Box area (300x150px, dashed border #E2E8F0). Draw with mouse/touch OR type name (toggle 'Ketik nama'). Clear button. Preview shows signature. Required.",
+    "CTA: 'Submit for Review' — orange (#FF8A34), full width, large. Disabled: gray #CBD5E1 until agreement checked + signature present.",
+    "SUCCESS STATE (separate mockup): Green checkmark circle, 'Application Submitted!', 'Admin akan review dalam 24 jam', estimated timer."
+  ],
+
+  "states": ["review", "editing", "agreement_checked", "signature_done", "submitting", "success"],
+  "notes": "IDENTICAL LAYOUT to other steps. Summary is read-only with edit links. E-signature supports draw OR type. CTA only enables when agreement checked AND signature present. Success state shows as separate screen mockup."
+}

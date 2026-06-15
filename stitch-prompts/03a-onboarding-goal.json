@@ -1,0 +1,33 @@
+{
+  "screen": "03a — Onboarding Step 1: Pilih Goal",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Single screen, light bg (#F8FAFC). Content is vertically centered with consistent spacing. Same layout structure as Step 2 and Step 3 — only the middle content changes.",
+
+  "layout_structure": {
+    "top_bar": "Ghost back arrow (top-left, DISABLED/lighter for step 1), 'Skip for now' link (top-right, slate #94A3B8)",
+    "progress": "Step indicator centered below top bar: 3 dot circles in a row. Step 1: ORANGE (#FF8A34) filled. Step 2: gray (#E2E8F0) outlined. Step 3: gray (#E2E8F0) outlined.",
+    "illustration": "Large icon (dumbbell/target for Goal) centered, ~80px, in blue (#003F8C)",
+    "heading": "'What's your goal?' — navy (#0B1B3B), h2 (24px), bold, centered",
+    "subtitle": "'Pilih tujuan latihan kamu' — slate (#64748B), body (16px), centered",
+    "content_area": "3 large selection cards stacked vertically, 16px gap between cards",
+    "cta": "Button 'Lanjut' — orange (#FF8A34), full width, 14px/24px padding, 12px radius. DISABLED (gray #94A3B8, no shadow) until a goal is selected.",
+    "spacing": "24px between each section. 16px horizontal padding on mobile, 32px on desktop."
+  },
+
+  "elements": [
+    "TOP BAR: Back arrow (ghost, disabled — lighter gray #CBD5E1) left. 'Skip for now' link (slate #94A3B8, small 14px) right.",
+    "PROGRESS: 3 horizontal dots. Dot 1: orange (#FF8A34) filled circle. Dot 2: gray (#E2E8F0) outlined circle. Dot 3: gray (#E2E8F0) outlined circle.",
+    "ILLUSTRATION: Large dumbbell/target icon, centered, #003F8C, ~80x80px.",
+    "HEADING: 'What's your goal?' centered, navy #0B1B3B, bold, 24px.",
+    "SUBTITLE: 'Pilih tujuan latihan kamu' centered, slate #64748B, 16px.",
+    "CONTENT — 3 selection cards, stacked, 16px gap:",
+    "  Card 1: White bg, 16px radius, subtle shadow, 20px padding. Left: weight/muscle icon (large, #003F8C). Center: 'Bulk (Massa Otot)' bold navy + 'Membangun massa otot dan kekuatan' small slate. Right: radio circle. Unselected: gray border. Selected: orange (#FF8A34) border 2px + radio filled orange.",
+    "  Card 2: Same layout. Icon: scale/measuring. Title: 'Cut (Defisit Kalori)'. Desc: 'Membakar lemak dan membentuk tubuh'.",
+    "  Card 3: Same layout. Icon: heart/lungs. Title: 'Endurance (Daya Tahan)'. Desc: 'Meningkatkan stamina dan kebugaran'.",
+    "CTA: 'Lanjut' — orange (#FF8A34), full width, 14px/24px padding, 12px radius, shadow 0 4px 12px rgba(255,138,52,0.3). Disabled state: bg #CBD5E1, no shadow, cursor not-allowed."
+  ],
+
+  "states": ["no_selection", "selected"],
+  "notes": "IDENTICAL LAYOUT to 03b and 03c — only content area changes. Cards are min 72px height for easy tapping. Selected state is unmistakable (orange border + filled radio)."
+}

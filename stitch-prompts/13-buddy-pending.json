@@ -1,0 +1,27 @@
+{
+  "screen": "13 — Buddy Pending Verification",
+  "import_design_system": "_design-system.json",
+
+  "layout": "Centered status card. Light bg. Clean, reassuring design.",
+
+  "elements": [
+    "STATUS CARD: White bg, 20px radius, centered shadow",
+    "  Icon: Clock/watch icon with subtle pulsing animation (if possible) in navy (#003F8C)",
+    "  Title: 'Pending Verification' in navy h2",
+    "  Status label: 'Menunggu verifikasi admin' in slate",
+    "  Timer/progress info: 'Estimated time: within 24 hours' with clock icon",
+    "  Progress bar or animated dots showing passage of time (optional)",
+
+    "SUBMITTED DETAILS: Expandable section showing what was submitted (read-only summary)",
+    "  Name, specialization, gym location, documents uploaded count",
+
+    "ACTION BUTTONS:",
+    "  'Edit Application' — outline button (blue #003F8C), in case buddy needs to fix something",
+    "  'Cancel Application' — ghost button (slate #94A3B8), confirmation dialog on tap",
+
+    "SUPPORT INFO: Small text at bottom 'Need help? Contact support@trialfit.com'"
+  ],
+
+  "states": ["pending", "approved_redirect", "rejected"],
+  "notes": "Reassuring design — buddy just submitted and is anxious. Clear timeline (24h). Edit option reduces support tickets. On approval: auto-redirect to Schedule Setup screen."
+}

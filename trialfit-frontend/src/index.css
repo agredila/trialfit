@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .landing-page {
+    --landing-header-bg: oklch(0.25 0.01 100 / 0.85);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .landing-page h1,
+  .landing-page h2,
+  .landing-page h3,
+  .landing-page h4 {
+    letter-spacing: -0.025em;
+  }
+
+  .landing-page * {
+    border-color: oklch(0.88 0.005 100);
+  }
+}
+
+@layer components {
+  /* Phone → tablet → desktop content width */
+  .app-onboarding-shell {
+    @apply mx-auto w-full max-w-md px-container-margin-mobile md:max-w-xl md:px-8 lg:max-w-2xl lg:px-container-margin-desktop;
+  }
+
+  .app-splash-shell {
+    @apply mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-between px-4 py-10 sm:max-w-lg md:max-w-2xl md:px-8 md:py-14 lg:max-w-3xl;
+  }
+
+  /* Floating tab bar — mobile & tablet; hidden on desktop where top nav is used */
+  .app-bottom-nav {
+    @apply fixed z-50 flex items-center justify-around rounded-full bg-tertiary px-4 py-3 shadow-[0_8px_32px_rgba(11,27,59,0.25)] sm:px-8;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+    width: min(calc(100vw - 2rem), 22rem);
+  }
+
+  .app-bottom-nav-item {
+    @apply flex min-h-[48px] min-w-[48px] flex-col items-center justify-center gap-0.5 text-white/60 transition-colors;
+  }
+
+  .app-sticky-footer {
+    @apply fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-bg-light via-bg-light to-transparent p-container-margin-mobile;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .pt-safe {
+    padding-top: max(0px, env(safe-area-inset-top, 0px));
+  }
+}
+
+/* Ensure app root is always visible even if Tailwind utilities fail to load */
+#root {
+  min-height: 100vh;
+  color: #0B1B3B;
+  background-color: #ffffff;
+}
+
+/* Material Symbols Outlined styling matching Google Stitch exports */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.icon-fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Custom scrollbar hiding helper */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Splash screen — Stitch export: Splash & Role Selection */
+.splash-bg-pattern {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, rgba(255, 138, 52, 0.05) 0%, transparent 20%);
+  background-size: 100% 100%;
+}
+
+.role-card-shadow {
+  box-shadow: 0 4px 24px rgba(11, 27, 59, 0.15);
+}
+
+.role-card-hover {
+  transition:
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.role-card-hover:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .role-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(11, 27, 59, 0.25);
+    border-color: #003F8C;
+  }
+
+  .role-card-hover:active:hover {
+    transform: translateY(-4px) scale(0.97);
+  }
+}
+
+@keyframes splashFadeInUp {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashFadeIn {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-splash-fade-in-up {
+  animation: splashFadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-splash-fade-in-up-delayed {
+  animation: splashFadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.05s forwards;
+}
+
+.animate-splash-fade-in-up-delayed-2 {
+  animation: splashFadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.1s forwards;
+}
+
+.animate-splash-fade-in {
+  animation: splashFadeIn 0.3s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-splash-fade-in-up,
+  .animate-splash-fade-in-up-delayed,
+  .animate-splash-fade-in-up-delayed-2,
+  .animate-splash-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
