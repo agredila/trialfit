@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm --prefix trialfit-frontend ci && npm --prefix trialfit-frontend run build",
+  "outputDirectory": "trialfit-frontend/dist",
+  "installCommand": "npm --prefix trialfit-frontend ci",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

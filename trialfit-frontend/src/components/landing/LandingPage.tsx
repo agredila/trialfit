@@ -1,7 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { landingAssets } from "../../assets/landing";
-import { AnimatedHeading, AnimatedText, MaskedImage } from "./AnimatedHeading";
+import { AnimatedHeading, AnimatedText } from "./AnimatedHeading";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { TeamCarousel } from "./TeamCarousel";
