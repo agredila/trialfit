@@ -6,11 +6,19 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    width: 100%;
   }
 
   body {
+    width: 100%;
+    min-width: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    width: 100%;
+    min-width: 0;
   }
 
   .landing-page {

@@ -129,7 +129,7 @@ function TeamSection() {
       className="landing-section scroll-mt-28 w-full min-w-0 px-4 py-16 sm:px-6 md:py-32 lg:px-12"
       style={{ fontFamily: TT_HOVES }}
     >
-      <div className="md:pl-[335px]">
+      <div className="lg:pl-[335px]">
         <div
           className="mb-8 uppercase tracking-[0.2em] text-landing-muted-foreground md:mb-16"
           style={{ fontSize: "11.26px", fontFamily: TT_HOVES }}
@@ -226,7 +226,7 @@ export function LandingPage({ onSelectSeeker, onSelectBuddy }: LandingPageProps)
       data-app-mounted
     >
       <Header />
-      <main>
+      <main className="w-full min-w-0">
         <Hero onSelectSeeker={onSelectSeeker} onSelectBuddy={onSelectBuddy} />
         <BenefitsSection />
         <TeamSection />

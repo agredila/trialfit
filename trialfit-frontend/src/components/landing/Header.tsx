@@ -1,5 +1,5 @@
 import { Menu, X } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { TrialFitLogo } from "./TrialFitLogo";
 
@@ -11,7 +11,7 @@ const NAV_ITEMS = [
 ] as const;
 
 const navLinkClass = (active: boolean) =>
-  `relative rounded-full px-5 py-2 text-sm transition ${
+  `relative block rounded-full px-5 py-2.5 text-sm transition ${
     active ? "font-medium" : "opacity-80 hover:opacity-100"
   }`;
 
@@ -76,63 +76,80 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  const handleNavClick = (href: string) => {
+    setActiveHref(href);
+    setMenuOpen(false);
+  };
+
   return (
-    <header className="fixed left-0 right-0 top-4 z-50 flex items-center justify-between px-4 sm:top-6 sm:px-8">
-      <TrialFitLogo variant={logoDark ? "dark" : "light"} />
+    <header className="fixed inset-x-0 top-0 z-50 w-full">
+      <div className="mx-auto flex w-full max-w-[1728px] items-center justify-between px-4 py-4 sm:px-6 lg:px-12">
+        <TrialFitLogo variant={logoDark ? "dark" : "light"} />
 
-      <div className="relative">
+        {/* Desktop nav */}
         <nav
-          className="flex items-center gap-1 rounded-full py-2 pl-2 pr-2 text-white backdrop-blur-md"
+          className="hidden items-center gap-1 rounded-full py-2 pl-2 pr-2 text-white backdrop-blur-md lg:flex"
           style={{ background: "var(--landing-header-bg)" }}
+          aria-label="Main navigation"
         >
-          <div className="hidden items-center gap-1 md:flex">
-            {NAV_ITEMS.map((item) => {
-              const active = activeHref === item.href;
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setActiveHref(item.href)}
-                  className={navLinkClass(active)}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="landing-nav-pill"
-                      className="absolute inset-0 rounded-full bg-white/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    />
-                  )}
-                  <span className="relative z-10">{item.label}</span>
-                </a>
-              );
-            })}
-          </div>
-
-          <button
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav-menu"
-            aria-label="Open menu"
-            onClick={() => setMenuOpen(true)}
-            className="flex items-center gap-2 rounded-full px-4 py-2 text-sm transition hover:bg-white/10 md:hidden"
-          >
-            <Menu className="h-4 w-4" />
-            Menu
-          </button>
+          {NAV_ITEMS.map((item) => {
+            const active = activeHref === item.href;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setActiveHref(item.href)}
+                className={navLinkClass(active)}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="landing-nav-pill"
+                    className="absolute inset-0 rounded-full bg-white/10"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{item.label}</span>
+              </a>
+            );
+          })}
         </nav>
 
+        {/* Mobile toggle — icon only */}
+        <button
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen((open) => !open)}
+          className="flex h-11 w-11 items-center justify-center rounded-full text-white backdrop-blur-md transition hover:bg-white/10 lg:hidden"
+          style={{ background: "var(--landing-header-bg)" }}
+        >
+          {menuOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
+        </button>
+      </div>
+
+      {/* Mobile dropdown panel */}
+      <AnimatePresence>
         {menuOpen && (
           <>
-            <button
+            <motion.button
               type="button"
               aria-label="Close menu overlay"
-              className="fixed inset-0 bg-black/40 md:hidden"
+              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setMenuOpen(false)}
             />
-            <nav
+            <motion.nav
               id="mobile-nav-menu"
-              className="absolute right-0 top-full z-50 mt-2 flex min-w-[220px] flex-col gap-1 rounded-2xl p-2 text-white shadow-lg backdrop-blur-md md:hidden"
+              className="fixed left-4 right-4 top-[4.5rem] z-50 flex flex-col gap-1 rounded-2xl p-2 text-white shadow-xl backdrop-blur-md lg:hidden"
               style={{ background: "var(--landing-header-bg)" }}
+              aria-label="Mobile navigation"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
             >
               {NAV_ITEMS.map((item) => {
                 const active = activeHref === item.href;
@@ -140,10 +157,7 @@ export function Header() {
                   <a
                     key={item.label}
                     href={item.href}
-                    onClick={() => {
-                      setActiveHref(item.href);
-                      setMenuOpen(false);
-                    }}
+                    onClick={() => handleNavClick(item.href)}
                     className={navLinkClass(active)}
                   >
                     {active && (
@@ -157,18 +171,10 @@ export function Header() {
                   </a>
                 );
               })}
-              <button
-                type="button"
-                onClick={() => setMenuOpen(false)}
-                className="mt-1 flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition hover:bg-white/10"
-              >
-                <X className="h-4 w-4" />
-                Close
-              </button>
-            </nav>
+            </motion.nav>
           </>
         )}
-      </div>
+      </AnimatePresence>
     </header>
   );
 }

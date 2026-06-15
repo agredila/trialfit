@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer
       id="contact"
-      className="scroll-mt-28 border-t border-white/10 bg-[#0B1B3B] text-white"
+      className="landing-section scroll-mt-28 w-full min-w-0 border-t border-white/10 bg-[#0B1B3B] text-white"
       style={{ fontFamily: TT_HOVES }}
     >
       <div className="px-4 py-12 sm:px-8 md:px-12 md:py-20">
