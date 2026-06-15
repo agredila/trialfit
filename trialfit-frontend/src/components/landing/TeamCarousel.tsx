@@ -1,8 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { landingAssets } from "../../assets/landing";
-import { MaskedImage } from "./AnimatedHeading";
 
 const TT_HOVES = '"TT Hoves", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -15,13 +14,13 @@ const TEAM = [
   { img: landingAssets.womanGymBuddy, role: "MOBILITY & RECOVERY", name: "Dewi Anggraini" },
 ];
 
-function useCarouselLayout() {
+function useVisibleCards() {
   const [visible, setVisible] = useState(3.25);
 
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 640) setVisible(1.15);
+      if (w < 640) setVisible(1.12);
       else if (w < 1024) setVisible(2.1);
       else setVisible(3.25);
     };
@@ -34,54 +33,75 @@ function useCarouselLayout() {
   return visible;
 }
 
+function useContainerWidth(ref: React.RefObject<HTMLElement | null>) {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const update = () => setWidth(el.getBoundingClientRect().width);
+    update();
+
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+
+  return width;
+}
+
 interface TeamCarouselProps {
   intro: ReactNode;
 }
 
 export function TeamCarousel({ intro }: TeamCarouselProps) {
+  const viewportRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
-  const visible = useCarouselLayout();
+  const visible = useVisibleCards();
+  const viewportWidth = useContainerWidth(viewportRef);
+
+  const cardWidth =
+    viewportWidth > 0 ? Math.max(0, (viewportWidth - (visible - 1) * GAP) / visible) : 0;
+  const step = cardWidth + GAP;
   const maxIndex = Math.max(0, Math.ceil(TEAM.length - visible));
 
   useEffect(() => {
     setIndex((i) => Math.min(i, maxIndex));
   }, [maxIndex]);
 
-  const cardWidth = `calc((100% - ${(TEAM.length - 1) * GAP}px) / ${TEAM.length})`;
-  const trackWidth = `calc(${TEAM.length} * ((100% - ${(visible - 1) * GAP}px) / ${visible}) + ${(TEAM.length - 1) * GAP}px)`;
-  const trackX = `calc(${-index} * (100% + ${GAP}px) / ${TEAM.length})`;
-
   const showControls = hovered || maxIndex > 0;
 
   return (
     <div
-      className="relative"
+      className="relative w-full min-w-0 overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex flex-col gap-8 md:flex-row md:gap-[11px]">
+      <div className="flex w-full min-w-0 flex-col gap-8 md:flex-row md:gap-[11px]">
         <div className="w-full shrink-0 md:w-[324px]">{intro}</div>
 
-        <div className="relative min-w-0 flex-1 overflow-hidden">
+        <div ref={viewportRef} className="relative min-w-0 flex-1 overflow-hidden">
           <motion.div
-            className="flex"
-            style={{ gap: GAP, width: trackWidth }}
-            animate={{ x: trackX }}
+            className="flex will-change-transform"
+            style={{ gap: GAP }}
+            animate={{ x: cardWidth > 0 ? -index * step : 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             {TEAM.map((member, i) => (
               <div
                 key={`${member.name}-${i}`}
                 className="shrink-0"
-                style={{ width: cardWidth, fontFamily: TT_HOVES }}
+                style={{ width: cardWidth || undefined, fontFamily: TT_HOVES }}
               >
                 <div className="aspect-[3/4] overflow-hidden bg-landing-muted">
-                  <MaskedImage
+                  <img
                     src={member.img}
                     alt={member.name}
-                    className="h-full w-full"
-                    delay={i * 0.08}
+                    className="h-full w-full object-cover"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </div>
                 <div className="pt-4 md:pt-6">
@@ -96,7 +116,6 @@ export function TeamCarousel({ intro }: TeamCarouselProps) {
         </div>
       </div>
 
-      {/* Mobile: always-visible nav; desktop: show on hover */}
       <div className="mt-6 flex justify-center gap-4 md:hidden">
         <button
           type="button"

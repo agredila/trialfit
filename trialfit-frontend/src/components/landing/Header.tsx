@@ -121,7 +121,7 @@ export function Header() {
           aria-controls="mobile-nav-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-white backdrop-blur-md transition hover:bg-white/10 lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white backdrop-blur-md transition hover:bg-white/10 lg:hidden"
           style={{ background: "var(--landing-header-bg)" }}
         >
           {menuOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}

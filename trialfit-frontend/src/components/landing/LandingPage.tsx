@@ -126,7 +126,7 @@ function TeamSection() {
   return (
     <section
       id="find-a-buddy"
-      className="landing-section scroll-mt-28 w-full min-w-0 px-4 py-16 sm:px-6 md:py-32 lg:px-12"
+      className="landing-section scroll-mt-28 w-full min-w-0 overflow-x-clip px-4 py-16 sm:px-6 md:py-32 lg:px-12"
       style={{ fontFamily: TT_HOVES }}
     >
       <div className="lg:pl-[335px]">
