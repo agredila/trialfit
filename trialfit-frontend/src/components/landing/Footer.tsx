@@ -11,7 +11,7 @@ export function Footer() {
       className="scroll-mt-28 border-t border-white/10 bg-[#0B1B3B] text-white"
       style={{ fontFamily: TT_HOVES }}
     >
-      <div className="px-8 py-16 md:px-12 md:py-20">
+      <div className="px-4 py-12 sm:px-8 md:px-12 md:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <TrialFitLogo />

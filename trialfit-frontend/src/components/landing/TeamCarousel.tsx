@@ -1,14 +1,12 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { landingAssets } from "../../assets/landing";
 import { MaskedImage } from "./AnimatedHeading";
 
 const TT_HOVES = '"TT Hoves", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 const GAP = 11.26;
-const INTRO_WIDTH = 324;
-const VISIBLE = 3.25;
 
 const TEAM = [
   { img: landingAssets.boxingBuddy, role: "BOXING COACH", name: "Raka Pratama" },
@@ -17,6 +15,25 @@ const TEAM = [
   { img: landingAssets.womanGymBuddy, role: "MOBILITY & RECOVERY", name: "Dewi Anggraini" },
 ];
 
+function useCarouselLayout() {
+  const [visible, setVisible] = useState(3.25);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 640) setVisible(1.15);
+      else if (w < 1024) setVisible(2.1);
+      else setVisible(3.25);
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return visible;
+}
+
 interface TeamCarouselProps {
   intro: ReactNode;
 }
@@ -24,11 +41,18 @@ interface TeamCarouselProps {
 export function TeamCarousel({ intro }: TeamCarouselProps) {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
-  const maxIndex = Math.max(0, Math.ceil(TEAM.length - VISIBLE));
+  const visible = useCarouselLayout();
+  const maxIndex = Math.max(0, Math.ceil(TEAM.length - visible));
+
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
 
   const cardWidth = `calc((100% - ${(TEAM.length - 1) * GAP}px) / ${TEAM.length})`;
-  const trackWidth = `calc(${TEAM.length} * ((100% - ${(VISIBLE - 1) * GAP}px) / ${VISIBLE}) + ${(TEAM.length - 1) * GAP}px)`;
+  const trackWidth = `calc(${TEAM.length} * ((100% - ${(visible - 1) * GAP}px) / ${visible}) + ${(TEAM.length - 1) * GAP}px)`;
   const trackX = `calc(${-index} * (100% + ${GAP}px) / ${TEAM.length})`;
+
+  const showControls = hovered || maxIndex > 0;
 
   return (
     <div
@@ -36,10 +60,8 @@ export function TeamCarousel({ intro }: TeamCarouselProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex" style={{ gap: GAP }}>
-        <div className="shrink-0" style={{ width: INTRO_WIDTH }}>
-          {intro}
-        </div>
+      <div className="flex flex-col gap-8 md:flex-row md:gap-[11px]">
+        <div className="w-full shrink-0 md:w-[324px]">{intro}</div>
 
         <div className="relative min-w-0 flex-1 overflow-hidden">
           <motion.div
@@ -62,11 +84,11 @@ export function TeamCarousel({ intro }: TeamCarouselProps) {
                     delay={i * 0.08}
                   />
                 </div>
-                <div className="pt-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-landing-muted-foreground">
+                <div className="pt-4 md:pt-6">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-landing-muted-foreground sm:text-xs">
                     {member.role}
                   </p>
-                  <p className="mt-2 text-xl font-medium">{member.name}</p>
+                  <p className="mt-1 text-lg font-medium md:mt-2 md:text-xl">{member.name}</p>
                 </div>
               </div>
             ))}
@@ -74,17 +96,39 @@ export function TeamCarousel({ intro }: TeamCarouselProps) {
         </div>
       </div>
 
+      {/* Mobile: always-visible nav; desktop: show on hover */}
+      <div className="mt-6 flex justify-center gap-4 md:hidden">
+        <button
+          type="button"
+          disabled={index === 0}
+          onClick={() => setIndex((i) => Math.max(0, i - 1))}
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-landing-foreground/10 text-landing-foreground transition disabled:opacity-30"
+          aria-label="Previous buddy"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          disabled={index >= maxIndex}
+          onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-landing-foreground/10 text-landing-foreground transition disabled:opacity-30"
+          aria-label="Next buddy"
+        >
+          <ArrowRight className="h-5 w-5" />
+        </button>
+      </div>
+
       <AnimatePresence>
-        {hovered && (
+        {showControls && (
           <motion.div
-            className="absolute left-1/2 top-[35%] z-10 -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute left-1/2 top-[35%] z-10 hidden -translate-x-1/2 -translate-y-1/2 md:block"
             initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.85 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.25 }}
           >
             <div
-              className="flex cursor-pointer items-center justify-center gap-4 rounded-full"
+              className="pointer-events-auto flex cursor-pointer items-center justify-center gap-4 rounded-full"
               style={{
                 width: 126,
                 height: 126,

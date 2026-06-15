@@ -25,12 +25,6 @@ const BENEFITS = [
   },
 ] as const;
 
-function applyResponsiveZoom() {
-  const w = document.documentElement.clientWidth;
-  const z = w < 1728 ? w / 1728 : 1;
-  document.documentElement.style.zoom = String(z);
-}
-
 interface LandingPageProps {
   onSelectSeeker: () => void;
   onSelectBuddy: () => void;
@@ -69,7 +63,7 @@ function Hero({
   }, []);
 
   return (
-    <section id="home" className="relative flex h-screen min-h-[780px] w-full flex-col items-center justify-center overflow-hidden">
+    <section id="home" className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden md:min-h-[780px]">
       <video
         ref={videoRef}
         src="/hero-video.mp4"
@@ -84,30 +78,30 @@ function Hero({
       <div className="absolute inset-0 bg-black/25" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-      <div className="relative z-10 flex w-full flex-col items-center justify-center px-8 text-center md:px-12">
+      <div className="relative z-10 flex w-full flex-col items-center justify-center px-4 pt-24 text-center sm:px-8 md:px-12 md:pt-0">
         <AnimatedHeading as="h1" className="font-medium leading-[1.05] text-white">
-          <span style={{ fontSize: "72.73px", lineHeight: 1.05, display: "block" }}>
+          <span className="block text-[clamp(1.75rem,6.5vw,4.5rem)] leading-[1.05]">
             Find your gym buddy and
             <br />
             finally stick to your fitness goals
           </span>
         </AnimatedHeading>
 
-        <div className="mt-10 flex items-center justify-center gap-6">
+        <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-4 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-6">
           <button
             type="button"
             onClick={onSelectSeeker}
-            className="flex items-center gap-3 rounded-full bg-white py-2 pl-6 pr-2 text-sm font-medium text-landing-foreground transition hover:bg-white/90"
+            className="flex min-h-[48px] items-center justify-center gap-3 rounded-full bg-white py-2 pl-6 pr-2 text-sm font-medium text-landing-foreground transition hover:bg-white/90 sm:justify-start"
           >
             I&apos;m a Gym Seeker
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-landing-foreground text-white">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-landing-foreground text-white">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </button>
           <button
             type="button"
             onClick={onSelectBuddy}
-            className="flex items-center gap-1 text-sm font-medium text-white transition hover:text-white/90"
+            className="flex min-h-[48px] items-center justify-center gap-1 text-sm font-medium text-white transition hover:text-white/90 sm:justify-start"
           >
             I&apos;m a Gym Buddy
             <ArrowUpRight className="h-4 w-4" />
@@ -115,13 +109,13 @@ function Hero({
         </div>
       </div>
 
-      <div className="absolute inset-x-8 bottom-16 md:inset-x-12">
+      <div className="absolute inset-x-4 bottom-8 sm:inset-x-8 sm:bottom-16 md:inset-x-12">
         <div
-          className="flex items-center justify-between border-t border-white/20 pt-5 uppercase tracking-[0.2em] text-white/70"
+          className="flex flex-col gap-2 border-t border-white/20 pt-4 uppercase tracking-[0.2em] text-white/70 sm:flex-row sm:items-center sm:justify-between sm:pt-5"
           style={{ fontSize: "12px" }}
         >
           <span>Gym Buddy Marketplace</span>
-          <span>Scroll to Explore</span>
+          <span className="hidden sm:inline">Scroll to Explore</span>
         </div>
       </div>
     </section>
@@ -130,10 +124,14 @@ function Hero({
 
 function TeamSection() {
   return (
-    <section id="find-a-buddy" className="scroll-mt-28 px-8 py-32 md:px-12" style={{ fontFamily: TT_HOVES }}>
-      <div style={{ paddingLeft: "335.26px" }}>
+    <section
+      id="find-a-buddy"
+      className="landing-section scroll-mt-28 w-full min-w-0 px-4 py-16 sm:px-6 md:py-32 lg:px-12"
+      style={{ fontFamily: TT_HOVES }}
+    >
+      <div className="md:pl-[335px]">
         <div
-          className="mb-16 uppercase tracking-[0.2em] text-landing-muted-foreground"
+          className="mb-8 uppercase tracking-[0.2em] text-landing-muted-foreground md:mb-16"
           style={{ fontSize: "11.26px", fontFamily: TT_HOVES }}
         >
           <span>Meet the Buddies</span>
@@ -141,12 +139,8 @@ function TeamSection() {
 
         <AnimatedHeading className="font-medium leading-[1.05]">
           <span
-            style={{
-              fontSize: "58.55px",
-              lineHeight: 1.05,
-              display: "block",
-              fontFamily: TT_HOVES,
-            }}
+            className="block text-[clamp(1.75rem,5vw,3.65rem)] leading-[1.05]"
+            style={{ fontFamily: TT_HOVES }}
           >
             Get to know the partners
             <br />
@@ -155,18 +149,13 @@ function TeamSection() {
         </AnimatedHeading>
       </div>
 
-      <div className="mt-20">
+      <div className="mt-12 md:mt-20">
         <TeamCarousel
           intro={
             <AnimatedText className="leading-relaxed text-landing-muted-foreground">
               <span
-                style={{
-                  fontSize: "16.89px",
-                  lineHeight: 1.5,
-                  display: "block",
-                  width: "270px",
-                  fontFamily: TT_HOVES,
-                }}
+                className="block max-w-none text-base leading-relaxed md:max-w-[270px] md:text-[16.89px]"
+                style={{ fontFamily: TT_HOVES }}
               >
                 Every TrialFit buddy is verified, rated, and chosen for consistency. They're real
                 gym-goers who train alongside you — keeping you accountable, motivated, and safe from
@@ -182,15 +171,18 @@ function TeamSection() {
 
 function BenefitsSection() {
   return (
-    <section id="how-it-works" className="scroll-mt-28 bg-landing-surface px-8 py-32 md:px-12">
-      <div className="mb-24 grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-7">
-          <AnimatedHeading className="text-5xl font-medium leading-[1.05] md:text-6xl">
+    <section
+      id="how-it-works"
+      className="landing-section scroll-mt-28 w-full min-w-0 bg-landing-surface px-4 py-12 sm:px-6 sm:py-16 lg:px-12 lg:py-32"
+    >
+      <div className="mb-8 flex w-full min-w-0 flex-col gap-5 lg:mb-24 lg:grid lg:grid-cols-12 lg:gap-12">
+        <div className="min-w-0 lg:col-span-7">
+          <AnimatedHeading className="text-[1.75rem] font-medium leading-[1.08] sm:text-4xl lg:text-5xl xl:text-6xl">
             What is TrialFit?
           </AnimatedHeading>
         </div>
-        <div className="col-span-12 md:col-span-4 md:col-start-9 md:pt-4">
-          <AnimatedText className="text-base leading-relaxed text-landing-muted-foreground">
+        <div className="min-w-0 lg:col-span-4 lg:col-start-9 lg:pt-2">
+          <AnimatedText className="text-sm leading-relaxed text-landing-muted-foreground sm:text-base">
             TrialFit is a gym buddy marketplace for Indonesia — connect with verified coaches and
             training partners at apartment and campus gyms, book sessions that fit your schedule,
             and get affordable guidance without a long-term membership.
@@ -198,44 +190,23 @@ function BenefitsSection() {
         </div>
       </div>
 
-      <div
-        className="relative grid grid-cols-1 md:grid-cols-3"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.45) 1px, transparent 1px)",
-          backgroundSize: "1px 100%, 1px 100%",
-          backgroundPosition: "33.3333% 0, 66.6666% 0",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-0 right-0 top-0 h-px"
-          style={{
-            background:
-              "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.45) 15%, rgba(255,255,255,0.45) 85%, transparent 100%)",
-          }}
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
-          style={{
-            background:
-              "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.45) 15%, rgba(255,255,255,0.45) 85%, transparent 100%)",
-          }}
-        />
-
+      <div className="landing-benefits-grid relative grid w-full min-w-0 grid-cols-1 lg:grid-cols-3">
         {BENEFITS.map((item, i) => (
-          <div key={item.num} className="flex flex-col gap-8 p-10">
-            <div>
-              <div className="mb-4 flex items-start gap-3">
-                <span className="mt-2 text-xs text-landing-muted-foreground">({item.num})</span>
-                <AnimatedHeading as="h3" className="text-3xl font-medium" delay={i * 0.1}>
-                  {item.title}
-                </AnimatedHeading>
-              </div>
+          <div
+            key={item.num}
+            className="landing-benefits-card flex w-full min-w-0 flex-col gap-4 px-0 py-6 sm:py-8 lg:gap-8 lg:p-10"
+          >
+            <div className="min-w-0">
+              <p className="mb-2 text-xs text-landing-muted-foreground">({item.num})</p>
+              <AnimatedHeading
+                as="h3"
+                className="text-lg font-medium leading-snug sm:text-xl lg:text-2xl xl:text-3xl"
+                delay={i * 0.1}
+              >
+                {item.title}
+              </AnimatedHeading>
               <AnimatedText
-                className="max-w-sm text-sm leading-relaxed text-landing-muted-foreground"
+                className="mt-3 text-sm leading-relaxed text-landing-muted-foreground sm:text-[15px]"
                 delay={0.2 + i * 0.1}
               >
                 {item.desc}
@@ -249,18 +220,9 @@ function BenefitsSection() {
 }
 
 export function LandingPage({ onSelectSeeker, onSelectBuddy }: LandingPageProps) {
-  useEffect(() => {
-    applyResponsiveZoom();
-    window.addEventListener("resize", applyResponsiveZoom);
-    return () => {
-      window.removeEventListener("resize", applyResponsiveZoom);
-      document.documentElement.style.zoom = "1";
-    };
-  }, []);
-
   return (
     <div
-      className="landing-page bg-landing-background text-landing-foreground antialiased"
+      className="landing-page overflow-x-clip bg-landing-background text-landing-foreground antialiased"
       data-app-mounted
     >
       <Header />

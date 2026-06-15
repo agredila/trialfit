@@ -77,7 +77,7 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="fixed left-0 right-0 top-6 z-50 flex items-center justify-between px-8">
+    <header className="fixed left-0 right-0 top-4 z-50 flex items-center justify-between px-4 sm:top-6 sm:px-8">
       <TrialFitLogo variant={logoDark ? "dark" : "light"} />
 
       <div className="relative">
